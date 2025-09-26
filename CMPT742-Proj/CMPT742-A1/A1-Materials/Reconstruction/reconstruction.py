@@ -6,6 +6,7 @@ from scipy.sparse.linalg import spsolve
 import scipy.signal as signal
 from scipy.sparse import lil_matrix
 
+DEBUG = True
 
 
 
@@ -138,7 +139,7 @@ def getCoefficientMatrix(indexes):
 def getSolutionVector(srcImg, indexes):
     '''
     Constructs the solution vector b for the linear system Av = b
-    
+
     Args:
         srcImg: The source image (grayscale) that we want to reconstruct
         indexes: The indexes Matrix, used to identify corner pixel locations.
@@ -147,24 +148,10 @@ def getSolutionVector(srcImg, indexes):
         b: The solution vector of size N (where N = height * width)
     '''
     
-    laplacian_kernel = np.array([[0, -1, 0], [-1, 4, -1], [0, -1, 0]])
-    b_matrix = signal.convolve2d(srcImg, laplacian_kernel, 'same')
+    b = np.zeros(srcImg.shape)
+     
     
-    b_normalized = np.clip(b_matrix, 0, 255)
-    b_normalized = b_normalized.astype(np.uint8)
     
-    cv2.imshow('edge image', b_normalized)
-    
-    b_matrix[0, 0] = srcImg[0, 0]
-    b_matrix[0, -1] = srcImg[0, -1]
-    b_matrix[-1, 0] = srcImg[-1, 0]
-    b_matrix[-1, -1] = srcImg[-1, -1]
-
-    # @TODO 
-    print(b_matrix.shape)
-    # @TODO
-        
-    b = b_matrix.flatten()
     
     return b
 

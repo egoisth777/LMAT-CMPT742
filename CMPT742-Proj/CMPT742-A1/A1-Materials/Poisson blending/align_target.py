@@ -56,7 +56,7 @@ def align_target(source_image, target_image):
         target_copy[mask2 == 1] = im_s2[mask2 == 1]
         cv2.imshow('target cloned', target_copy)
         t_lst = [ty, tx]
-        key = cv2.waitKeyEx(0)
+        key = cv2.waitKeyEx(2)
         if key & 0xFF == ord('r'):
             angle += 10.
         elif key & 0xFF == ord('s'):
