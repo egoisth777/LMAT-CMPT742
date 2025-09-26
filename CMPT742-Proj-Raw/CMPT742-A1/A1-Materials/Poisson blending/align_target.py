@@ -34,13 +34,13 @@ def align_target(source_image, target_image):
         xmax = np.max(x)
 
         target_copy = target_image.copy()
-        yind2 = np.clip(np.arange(ymin, ymax) - int(y.mean()) + int(ty), 0, target_copy.shape[0] - 1).astype(int)
+        yind2 = np.clip(np.arange(ymin, ymax) - int(y.mean()) + int(ty), 0, target_copy.shape[0] - 1).astype(np.int)
         yind = yind2 + int(y.mean()) - int(ty)
-        xind2 = np.clip(np.arange(xmin, xmax) - int(x.mean()) + int(tx), 0, target_copy.shape[1] - 1).astype(int)
+        xind2 = np.clip(np.arange(xmin, xmax) - int(x.mean()) + int(tx), 0, target_copy.shape[1] - 1).astype(np.int)
         xind = xind2 + int(x.mean()) - int(tx)
 
-        y = np.clip(y - int(y.mean()) + int(ty), 0, target_copy.shape[0] - 1).astype(int)
-        x = np.clip(x - int(x.mean()) + int(tx), 0, target_copy.shape[1] - 1).astype(int)
+        y = np.clip(y - int(y.mean()) + int(ty), 0, target_copy.shape[0] - 1).astype(np.int)
+        x = np.clip(x - int(x.mean()) + int(tx), 0, target_copy.shape[1] - 1).astype(np.int)
 
         mask2 = np.zeros((target_copy.shape[0], target_copy.shape[1]), dtype=np.float32)
         mask2[y, x] = 1
@@ -56,7 +56,7 @@ def align_target(source_image, target_image):
         target_copy[mask2 == 1] = im_s2[mask2 == 1]
         cv2.imshow('target cloned', target_copy)
         t_lst = [ty, tx]
-        key = cv2.waitKeyEx(0)
+        key = cv2.waitKey(0)
         if key & 0xFF == ord('r'):
             angle += 10.
         elif key & 0xFF == ord('s'):
