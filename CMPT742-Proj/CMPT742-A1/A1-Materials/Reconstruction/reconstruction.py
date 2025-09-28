@@ -30,7 +30,7 @@ def getIndexes(srcImg):
 def generateLaplacian(srcImg):
     height, width = srcImg.shape
     s = height * width
-    matrix = lil_matrix((s, s))
+    matrix = lil_matrix((s, s)) # Accelerate matrix Building 
 
     for i in range(width):
         for j in range(height):
@@ -70,7 +70,7 @@ def getCoefficientMatrix(indexes):
     '''
     imgH, imgW = indexes.shape
     N = imgH * imgW
-    A = np.zeros((N, N))
+    A = lil_matrix((N, N))  # Use sparse matrix from the start
     
     # Create masks
     cornerMask = np.zeros((imgH, imgW), dtype=bool)
@@ -92,7 +92,7 @@ def getCoefficientMatrix(indexes):
     diag[indexes[horizontalBorderMask]] = 2
     diag[indexes[verticalBorderMask]] = 2
     diag[cornerIdxs] = 1
-    A[np.arange(N), np.arange(N)] = diag
+    A.setdiag(diag)  # Use setdiag for sparse matrix
 
 
     y_int, x_int = np.where(interiorMask)
@@ -100,7 +100,7 @@ def getCoefficientMatrix(indexes):
         ny, nx = y_int + dy, x_int + dx
         orig_indices = indexes[y_int, x_int]
         neighbor_indices = indexes[ny, nx]
-        A[orig_indices, neighbor_indices] = 1
+        A[orig_indices, neighbor_indices] = -1
 
     y_h, x_h = np.where(horizontalBorderMask)
     for dy, dx in [(0, -1), (0, 1)]:
@@ -130,10 +130,7 @@ def getCoefficientMatrix(indexes):
         neighbor_indices = indexes[valid_ny, valid_nx]
         A[orig_indices, neighbor_indices] = -1
     
-    # For corner pixels, ensure the rest of the row is 0
-    A[cornerIdxs, :] = 0
-    
-    return sparse.csr_matrix(A)
+    return A.tocsr()  # Convert to CSR for efficient solving
     
 
 def getSolutionVector(srcImg, indexes):
@@ -148,26 +145,45 @@ def getSolutionVector(srcImg, indexes):
         b: The solution vector of size N (where N = height * width)
     '''
     
-    b = np.zeros(srcImg.shape)
-     
+    H, W = srcImg.shape
+    # Convert to float64 to avoid overflow issues
+    srcImg_float = srcImg.astype(np.float64)
+    b = np.zeros((H, W), dtype=np.float64)
     
+    for i in range(H):
+        for j in range(W):
+            # Corner pixels - keep original values
+            if (i == 0 and j == 0) or (i == 0 and j == W-1) or (i == H-1 and j == 0) or (i == H-1 and j == W-1):
+                b[i][j] = srcImg_float[i][j]
+            
+            # Top and bottom edges (excluding corners)
+            elif (i == 0 or i == H-1) and (0 < j < W-1):
+                b[i][j] = 2 * srcImg_float[i][j] - srcImg_float[i][j-1] - srcImg_float[i][j+1]
+            
+            # Left and right edges (excluding corners)  
+            elif (j == 0 or j == W-1) and (0 < i < H-1):
+                b[i][j] = 2 * srcImg_float[i][j] - srcImg_float[i-1][j] - srcImg_float[i+1][j]
+            
+            # Interior pixels (have four neighbors)
+            else:
+                b[i][j] = 4 * srcImg_float[i][j] - srcImg_float[i-1][j] - srcImg_float[i+1][j] - srcImg_float[i][j-1] - srcImg_float[i][j+1]
     
-    
-    return b
+    # Return as a flattened vector
+    return b.flatten()
 
 def reconstructImg(srcImg):
     indexes = getIndexes(srcImg)
     
     # @TODO
-    H, W = srcImg.shape
-    A = generateLaplacian(srcImg)
-    A = A.tocsr()
+    # H, W = srcImg.shape
+    # A = generateLaplacian(srcImg)
+   # A = A.tocsc()
     # @TODO
     
-    # A = getCoefficientMatrix(indexes)
+    A = getCoefficientMatrix(indexes)
     b = getSolutionVector(srcImg, indexes)
     v = sparse.linalg.spsolve(A, b)
-    print(v)
+
     reconstructed_img = v.reshape(srcImg.shape)
     
     reconstructed_img = np.clip(reconstructed_img, 0, 255)
@@ -179,7 +195,7 @@ def reconstructImg(srcImg):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    cv2.imwrite('reconstructed_image.jpg', reconstructImg)
+    cv2.imwrite('reconstructed_image.jpg', reconstructed_img)
     
     
 
