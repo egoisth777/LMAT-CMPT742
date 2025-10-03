@@ -64,11 +64,11 @@ def align_target(source_image, target_image):
             scale += 0.1
         elif key & 0xFF == ord('a'):
             scale -= 0.1
-        elif key == 0 or key == ord('j'):
+        elif key == 0 or key == ord('k'):
             ty -= 5
-        elif key == 1 or key == ord('i'):
+        elif key == 1 or key == ord('j'):
             ty += 5
-        elif key == 2 or key == ord('j'):
+        elif key == 2 or key == ord('h'):
             tx -= 5
         elif key == 3 or key == ord('l'):
             tx += 5
