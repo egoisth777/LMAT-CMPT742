@@ -201,5 +201,5 @@ def reconstructImg(srcImg):
 
 if __name__ == '__main__':
     # Load the Source Image as GrayScale Image
-    srcImg = cv2.imread('large.jpg', cv2.IMREAD_GRAYSCALE)
+    srcImg = cv2.imread('target1.jpg', cv2.IMREAD_GRAYSCALE)
     reconstructImg(srcImg)

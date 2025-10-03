@@ -78,7 +78,7 @@ def erode_mask(mask, kernel_size):
     
 if __name__ == '__main__':
     #read source and target images
-    source_path = 'source1.jpg'
+    source_path = 'source2.jpg'
     target_path = 'target.jpg'
     source_image = cv2.imread(source_path)
     target_image = cv2.imread(target_path)
