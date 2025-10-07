@@ -23,11 +23,6 @@ def generate_laplacian(height, width, mask):
 
     return A
 
-def getCoefficientMatrix(indexes, mask):
-    pass    
-def getIndexes(srcImg):
-    pass
-
 def poisson_blend(source_image, target_image, target_mask):
     source = source_image.astype(np.float64)
     target = target_image.astype(np.float64)
@@ -38,14 +33,14 @@ def poisson_blend(source_image, target_image, target_mask):
     res = source_image.copy()
     
     for layer in range(channels):
-        s = source[:,:,layer].flatten()
+        s = source[:,:,layer].flatten() # extract pixel value for each channel
         t = target[:,:,layer].flatten()
         
         b = np.zeros_like(s)
         
         for j in range(height):
             for i in range(width):
-                curr_index = j * width + i
+                curr_index = j * width + i # convert to indices
                 if mask[j, i]:  # inside the mask
                     # laplacian of the source patch
                     b[curr_index] = (
@@ -78,7 +73,7 @@ def erode_mask(mask, kernel_size):
     
 if __name__ == '__main__':
     #read source and target images
-    source_path = 'source2.jpg'
+    source_path = 'source1.jpg'
     target_path = 'target.jpg'
     source_image = cv2.imread(source_path)
     target_image = cv2.imread(target_path)
