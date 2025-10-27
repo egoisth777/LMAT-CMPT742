@@ -1,0 +1,40 @@
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "CPython 3.13.7",
+  "startedAt": "2025-10-27T04:29:48.233936Z",
+  "program": "e:\\repos\\LectureMat\\LMAT-CMPT742\\CMPT742-Proj\\CMPT742-A2\\assignment_2.ipynb",
+  "codePath": "CMPT742-Proj\\CMPT742-A2\\assignment_2.ipynb",
+  "codePathLocal": "assignment_2.ipynb",
+  "git": {
+    "remote": "git@github.com:egoisth777/LMAT-CMPT742.git",
+    "commit": "6df8d63c960646f73ba57df70a5150504ea6d1ff"
+  },
+  "email": "egoistheresy@outlook.com",
+  "root": "e:\\repos\\LectureMat\\LMAT-CMPT742\\CMPT742-Proj\\CMPT742-A2",
+  "host": "EgoistVengence",
+  "executable": "e:\\dev\\envs\\anaconda3\\envs\\CMPT742-env\\python.exe",
+  "cpu_count": 24,
+  "cpu_count_logical": 32,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "4000768323584",
+      "used": "1328352419840"
+    }
+  },
+  "memory": {
+    "total": "68481245184"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "24146608128",
+      "cudaCores": 16384,
+      "architecture": "Ada",
+      "uuid": "GPU-3a78590f-8c4b-03be-7881-cdd74d1e5ac7"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "uzimugnru1tiare4z95wlyu0jw4dilbd"
+}
