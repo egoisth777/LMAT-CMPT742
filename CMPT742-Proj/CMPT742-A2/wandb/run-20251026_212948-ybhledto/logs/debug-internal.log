@@ -1,0 +1,12 @@
+{"time":"2025-10-26T21:29:50.5398009-07:00","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-10-26T21:29:50.9497623-07:00","level":"INFO","msg":"stream: created new stream","id":"ybhledto"}
+{"time":"2025-10-26T21:29:50.9497623-07:00","level":"INFO","msg":"handler: started","stream_id":"ybhledto"}
+{"time":"2025-10-26T21:29:50.950277-07:00","level":"INFO","msg":"stream: started","id":"ybhledto"}
+{"time":"2025-10-26T21:29:50.950277-07:00","level":"INFO","msg":"writer: started","stream_id":"ybhledto"}
+{"time":"2025-10-26T21:29:50.950277-07:00","level":"INFO","msg":"sender: started","stream_id":"ybhledto"}
+{"time":"2025-10-26T21:30:09.2028242-07:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.2821178},{"desc":"uploading checkpoint.pt","runtime_seconds":0.0438035,"progress":"528.0KB/118.4MB"}],"total_operations":2}}
+{"time":"2025-10-26T21:30:18.9935982-07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-10-26T21:30:19.1290895-07:00","level":"INFO","msg":"stream: closing","id":"ybhledto"}
+{"time":"2025-10-26T21:30:19.1290895-07:00","level":"INFO","msg":"handler: closed","stream_id":"ybhledto"}
+{"time":"2025-10-26T21:30:19.1290895-07:00","level":"INFO","msg":"sender: closed","stream_id":"ybhledto"}
+{"time":"2025-10-26T21:30:19.1290895-07:00","level":"INFO","msg":"stream: closed","id":"ybhledto"}
