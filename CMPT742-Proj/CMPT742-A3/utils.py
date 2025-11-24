@@ -230,7 +230,7 @@ def visualize_pred(
     image[h:, w:] = image4
     # cv2.imshow(windowname + " [[gt_box,gt_dft],[pd_box,pd_dft]]", image)
     if final_report:
-        cv2.imwrite("report_output/" + windowname + "_visualized.jpg", image)
+        cv2.imwrite("output/report_output/" + windowname + "_visualized.jpg", image)
 
     else:
         cv2.imwrite("output/images/" + windowname + "_visualized.jpg", image)
@@ -308,7 +308,7 @@ def _safe_destroy_windows():
 
 
 ###
-# for the `generate_mAP` method, it's in `map.py`. run `python map.py` will do the job.
+# for the `generate_mAP` method, it's in `gen_map.py`. run `python gen_map.py` will do the job.
 ###
 # def generate_mAP(dataloader, network, class_names):
-# it's in `map.py`.
+# it's in `gen_map.py`.

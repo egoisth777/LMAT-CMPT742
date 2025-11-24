@@ -270,4 +270,4 @@ else:
             boxs_default,
         )
         # cv2.waitKey(1000)
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
