@@ -1,3 +1,12 @@
+---
+aliases: []
+tags: []
+icon:
+iconColor:
+date-created: 2025-11-17-08:46:20
+date-modified: 2025-11-27-01:22:09
+---
+
 # CMPT 742 Assignment 3
 
 This repository contains the SSD detector implementation used in Assignment 3. Use the bundled PowerShell helper `run.ps1` to dispatch the common workflows (training, evaluation, mAP calculation, and report-figure generation) without remembering the underlying Python entry points.
