@@ -1,0 +1,1 @@
+python ./eight_point_fw.py
